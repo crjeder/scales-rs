@@ -5,9 +5,9 @@ author: 'K. <kayo@illumium.org>'
 on:
   push:
     branches: [ release ]
-    paths: 
-      - '**/Cargo.toml'
-      - '**/Cargo.lock'
+    # paths: 
+    #  - '**/Cargo.toml'
+    #  - '**/Cargo.lock'
       tags:        
       - '*'           # Push events to every tag not containing /
 
