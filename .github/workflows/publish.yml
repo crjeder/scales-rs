@@ -1,6 +1,4 @@
 name: 'publish crates'
-description: 'Publish Rust crates on crates.io'
-author: 'K. <kayo@illumium.org>'
 
 on:
   push:
