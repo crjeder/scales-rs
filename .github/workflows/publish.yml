@@ -9,13 +9,15 @@ on:
     tags:        
       - '*'           # Push events to every tag not containing /
 
-#jobs:
-steps:
-  - uses: actions/checkout@v3
-  - uses: actions-rs/toolchain@v1
-    with:
-    toolchain: stable
-    override: true
-  - uses: katyo/publish-crates@v2
-    with:
-      registry-token: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+jobs:
+  cargo_publish:
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+        toolchain: stable
+        override: true
+      - uses: katyo/publish-crates@v2
+        with:
+          registry-token: ${{ secrets.CARGO_REGISTRY_TOKEN }}
