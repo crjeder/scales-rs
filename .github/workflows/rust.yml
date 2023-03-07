@@ -2,11 +2,11 @@ name: Rust
 # language: rust
 
 on:
-  push:
-    branches: [ release ]
-    paths: 
-      - '**/Cargo.toml'
-      - '**/Cargo.lock'
+  #push:
+  #  branches: [ release ]
+  #  paths: 
+  #    - '**/Cargo.toml'
+  #    - '**/Cargo.lock'
   pull_request:
     branches: [ release ]
 
