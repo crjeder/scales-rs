@@ -1,15 +1,16 @@
-name: 'publish crates'
+name: publish
 
 on:
   push:
     branches: [ release ]
-    # paths: 
-    #  - '**/Cargo.toml'
-    #  - '**/Cargo.lock'
+      paths: 
+        - '**/Cargo.toml'
+        - '**/Cargo.lock'
       tags:        
       - '*'           # Push events to every tag not containing /
 
-steps:
+jobs:
+  steps:
     - uses: actions/checkout@v3
     - uses: actions-rs/toolchain@v1
       with:
