@@ -11,8 +11,10 @@ on:
 
 jobs:
   cargo_publish:
+    runs-on: ubuntu-latest
 
-    steps:
+    steps:  
+    - name: publish
       - uses: actions/checkout@v3
       - uses: actions-rs/toolchain@v1
         with:
