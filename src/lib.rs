@@ -1,18 +1,33 @@
-use core::{u32, f32};
+#![forbid(unsafe_code)]
+#![no_std]
 
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
-struct Scales <T> {
-    tare: u32,
-    calibration: f32,
-    device: T impl read() -> u32;
+use core::{i32, f32, result::Result};
+use core::marker::PhantomData;
+// use nb::Result;
+
+trait Readable<E> {
+    fn read(&mut self) -> Result<i32, E>;
 }
 
-impl Scales {
-    fn new(tare: u32, calibration: f32) -> Self { Self { tare, calibration } }
+#[derive(Debug, PartialEq)]
+struct Scales<T: Readable<E>, E> {
+    tare: i32,
+    calibration: f32,
+    device: T,
+    ph: PhantomData<E>,
+}
 
-    fn tare(&self, tare: u32) {
+impl <T, E>Scales<T, E> where T: Readable<E> {
+    fn new(tare: i32, calibration: f32, device: T) -> Self { 
+        Self {tare, calibration, device, ph: PhantomData} 
+    }
+
+    fn tare(&mut self, tare: i32) {
         self.tare = tare;
     }
 
-    fn read
+    fn read(&mut self) -> Result<i32, E> {
+       let mut value = self.device.read()?;
+       Ok((f64::from(value - self.tare) * f64::from(self.calibration)).round() as i32)
+    }
 }
