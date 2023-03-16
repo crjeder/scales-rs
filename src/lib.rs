@@ -1,9 +1,8 @@
 #![forbid(unsafe_code)]
 #![no_std]
 
-use core::{i32, f32, result::Result};
 use core::marker::PhantomData;
-// use nb::Result;
+use core::{f64, i32, result::Result};
 
 trait Readable<E> {
     fn read(&mut self) -> Result<i32, E>;
@@ -17,9 +16,18 @@ struct Scales<T: Readable<E>, E> {
     ph: PhantomData<E>,
 }
 
-impl <T, E>Scales<T, E> where T: Readable<E> {
-    fn new(tare: i32, calibration: f32, device: T) -> Self { 
-        Self {tare, calibration, device, ph: PhantomData} 
+#[allow(dead_code)]
+impl<T, E> Scales<T, E>
+where
+    T: Readable<E>,
+{
+    fn new(tare: i32, calibration: f32, device: T) -> Self {
+        Self {
+            tare,
+            calibration,
+            device,
+            ph: PhantomData,
+        }
     }
 
     fn tare(&mut self, tare: i32) {
@@ -27,7 +35,7 @@ impl <T, E>Scales<T, E> where T: Readable<E> {
     }
 
     fn read(&mut self) -> Result<i32, E> {
-       let mut value = self.device.read()?;
-       Ok((f64::from(value - self.tare) * f64::from(self.calibration)).round() as i32)
+        let value = self.device.read()?;
+        Ok((f64::from(value - self.tare) * f64::from(self.calibration)) as i32)
     }
 }
