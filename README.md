@@ -1,2 +1,2 @@
 # scales-rs
-Trivial Scales crate
+Trivial scales crate
