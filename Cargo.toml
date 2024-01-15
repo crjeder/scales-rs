@@ -16,7 +16,7 @@ description = "Trivial scales crate"
 # [dev-dependencies]
 embedded-hal-mock = "0.9.0"
 hx711_spi = "0.5"
-embedded-hal = "0.2.7"
+embedded-hal = "1.0.0"
 nb = "1.1.0"
 
 # [[example]]
